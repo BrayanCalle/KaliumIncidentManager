@@ -40,7 +40,7 @@ class ListIncidents extends Command
             $query->where('priority', strtoupper($priority));
         }
 
-        $incidents = $query->get(['id', 'title', 'status', 'priority', 'createdAt']);
+        $incidents = $query->get(['id', 'title', 'description', 'status', 'priority', 'createdAt']);
 
         if ($incidents->isEmpty()) {
             $this->warn('No hay incidentes que coincidan con la búsqueda.');
@@ -49,7 +49,7 @@ class ListIncidents extends Command
 
         // Renderizar tabla 
         $this->table(
-            ['ID', 'Título', 'Estado', 'Prioridad', 'Fecha'],
+            ['ID', 'Título', 'Descripción', 'Estado', 'Prioridad', 'Fecha'],
             $incidents->toArray()
         );
     }
