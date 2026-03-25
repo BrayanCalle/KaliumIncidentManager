@@ -55,6 +55,7 @@ return [
     */
 
     'hidden' => [
+        \Symfony\Component\Console\Command\ListCommand::class,
         NunoMaduro\LaravelConsoleSummary\SummaryCommand::class,
         Symfony\Component\Console\Command\DumpCompletionCommand::class,
         Symfony\Component\Console\Command\HelpCommand::class,

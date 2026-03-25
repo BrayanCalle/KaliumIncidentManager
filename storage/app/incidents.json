@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Web Vuln detectado",
+    "description": "Vulnerabilidad crítica en el portal principal",
+    "status": "OPEN",
+    "priority": "HIGH",
+    "createdAt": "2026-03-25 11:09:01"
+  },
+  {
+    "id": 2,
+    "title": "Fallo conexion DB",
+    "description": "Error intermitente en el cluster de base de datos",
+    "status": "OPEN",
+    "priority": "HIGH",
+    "createdAt": "2026-03-25 11:09:01"
+  },
+  {
+    "id": 3,
+    "title": "Acceso No Autorizado",
+    "description": "Múltiples intentos de login desde IPs sospechosas",
+    "status": "OPEN",
+    "priority": "MEDIUM",
+    "createdAt": "2026-03-25 11:09:01"
+  }
+]
