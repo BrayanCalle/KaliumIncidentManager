@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Incident;
-use Illuminate\Support\Facades\Storage;
 
 class IncidentManager
 {

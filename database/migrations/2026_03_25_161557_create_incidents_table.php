@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('incidents', function (Blueprint $table) {
+            $table->id();
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['OPEN', 'IN_PROGRESS', 'RESOLVED'])->default('OPEN');

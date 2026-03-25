@@ -4,7 +4,6 @@ namespace App\Commands;
 
 use LaravelZero\Framework\Commands\Command;
 use App\Models\Incident;
-use App\Services\IncidentManager;
 
 class CreateIncident extends Command
 {

@@ -13,15 +13,15 @@ class ProcessIncidents extends Command
 
     public function handle(IncidentManager $manager)
     {
-        // 1. Mensaje obligatorio 
+        // Mensaje Principal
         $this->info('[Kalium] Sistema Gestion Incidentes iniciando');
 
         $this->comment('Buscando incidentes críticos pendientes...');
 
-        // 2. Ejecutar la lógica del Service
+        // Ejecutar la lógica del Service
         $updatedCount = $manager->processCriticalIncidents();
 
-        // 3. Informar al usuario
+        // Informar al usuario
         if ($updatedCount > 0) {
             $this->info("✔ Se han actualizado {$updatedCount} incidentes críticos a estado 'IN_PROGRESS'.");
         } else {
