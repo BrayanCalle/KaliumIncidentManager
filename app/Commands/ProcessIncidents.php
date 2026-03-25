@@ -2,38 +2,30 @@
 
 namespace App\Commands;
 
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
+use App\Services\IncidentManager;
 
 class ProcessIncidents extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'app:process-incidents';
+    // Cambiamos la firma para que sea profesional
+    protected $signature = 'incidents:process';
+    protected $description = 'Procesa automáticamente los incidentes críticos (HIGH)';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    public function handle(IncidentManager $manager)
     {
-        //
-    }
+        // 1. Mensaje obligatorio 
+        $this->info('[Kalium] Sistema Gestion Incidentes iniciando');
 
-    /**
-     * Define the command's schedule.
-     */
-    public function schedule(Schedule $schedule): void
-    {
-        // $schedule->command(static::class)->everyMinute();
+        $this->comment('Buscando incidentes críticos pendientes...');
+
+        // 2. Ejecutar la lógica del Service
+        $updatedCount = $manager->processCriticalIncidents();
+
+        // 3. Informar al usuario
+        if ($updatedCount > 0) {
+            $this->info("✔ Se han actualizado {$updatedCount} incidentes críticos a estado 'IN_PROGRESS'.");
+        } else {
+            $this->warn('No se encontraron incidentes críticos en estado OPEN para procesar.');
+        }
     }
 }
