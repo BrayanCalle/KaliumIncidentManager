@@ -2,38 +2,43 @@
 
 namespace App\Commands;
 
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
+use App\Models\Incident;
+use App\Services\IncidentManager;
 
 class CreateIncident extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'app:create-incident';
+    protected $signature = 'incidents:create';
+    protected $description = 'Crea un nuevo incidente técnico de forma interactiva';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
-        //
-    }
+        // 1. Mensaje obligatorio
+        $this->info('[Kalium] Sistema Gestion Incidentes iniciando');
 
-    /**
-     * Define the command's schedule.
-     */
-    public function schedule(Schedule $schedule): void
-    {
-        // $schedule->command(static::class)->everyMinute();
+        // 2. Recolectar datos de forma interactiva
+        $title = $this->ask('Título del incidente');
+        $description = $this->ask('Descripción detallada');
+        
+        // 3. Validación de Estados y Prioridades (Uso de choice para evitar estados inválidos)
+        $status = $this->choice('Estado inicial', ['OPEN', 'IN_PROGRESS', 'RESOLVED'], 0);
+        $priority = $this->choice('Prioridad', ['LOW', 'MEDIUM', 'HIGH'], 1);
+
+        // 4. Lógica para evitar IDs duplicados
+        // Al usar el ID autoincremental de SQLite, evitamos duplicidad técnica.
+        // Si el requisito pide un ID manual, se validaría aquí.
+        
+        try {
+            $incident = Incident::create([
+                'title' => $title,
+                'description' => $description,
+                'status' => $status,
+                'priority' => $priority,
+            ]);
+
+            $this->info("✔ Incidente #{$incident->id} creado exitosamente.");
+        } catch (\Exception $e) {
+            $this->error("Error al crear el incidente: " . $e->getMessage());
+        }
     }
 }
