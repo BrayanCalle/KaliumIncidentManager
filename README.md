@@ -13,7 +13,7 @@ Sistema de gestión de incidentes desarrollado con **Laravel Zero** y **Eloquent
 1.  **Clonar el repositorio:**
     ```bash
     git clone <url-del-repositorio>
-    cd KaliumIncidentManager
+    cd prueba-tecnica-kalium
     ```
 
 2.  **Instalar dependencias:**

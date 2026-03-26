@@ -17,6 +17,25 @@ class IncidentManager
             ->update(['status' => 'IN_PROGRESS']);
     }
 
+    public function updateStatusToInProgress($id)
+    {
+        $incident = Incident::find($id);
+
+        // Retornamos el objeto o false para que el comando decida qué mensaje mostrar
+        if (!$incident) {
+            throw new \Exception("No se encontró el incidente con ID: {$id}");
+        }
+
+        if ($incident->status !== 'OPEN') {
+            throw new \Exception("El incidente {$id} ya está en estado: {$incident->status}");
+        }
+
+        $incident->status = 'IN_PROGRESS';
+        $incident->save();
+
+        return $incident;
+    }
+
     /**
      * Carga los datos desde el archivo JSON a la base de datos si está vacía.
      */
